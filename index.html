@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>কিস্তি ম্যানেজমেন্ট ওয়েব পোর্টাল | Installment Business App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-hover: #1d4ed8;
+      --secondary: #0f766e;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --success: #15803d;
+      --success-bg: #dcfce7;
+      --warning: #b45309;
+      --warning-bg: #fef3c7;
+      --danger: #b91c1c;
+      --danger-bg: #fee2e2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    body { background-color: var(--bg); color: var(--text-main); min-height: 100vh; padding: 20px; }
+    .container { max-width: 1350px; margin: 0 auto; }
+
+    header {
+      background: var(--surface);
+      padding: 20px 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .brand h1 { font-size: 22px; color: var(--primary); font-weight: 800; display: flex; align-items: center; gap: 10px; }
+    .brand p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: var(--surface); color: var(--text-main); border-color: var(--border); }
+    .btn-secondary:hover { background: #f1f5f9; }
+    .btn-success { background: var(--secondary); color: white; }
+    .btn-success:hover { background: #115e59; }
+
+    /* Partners & Capital Bar */
+    .capital-bar {
+      background: linear-gradient(135deg, #eff6ff 0%, #f0fdfa 100%);
+      border: 1px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .partners-list { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .partner-chip {
+      background: white;
+      border: 1px solid #cbd5e1;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .partner-chip strong { color: var(--primary); }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--surface);
+      padding: 18px 20px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+      background: #cbd5e1;
+    }
+    .stat-card.c-cost::before { background: #3b82f6; }
+    .stat-card.c-profit::before { background: #10b981; }
+    .stat-card.c-sales::before { background: #6366f1; }
+    .stat-card.c-collected::before { background: #059669; }
+    .stat-card.c-due::before { background: #ef4444; }
+
+    .stat-label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-value { font-size: 24px; font-weight: 800; color: var(--text-main); margin-top: 6px; }
+    .stat-card.c-due .stat-value { color: var(--danger); }
+    .stat-card.c-profit .stat-value { color: var(--success); }
+
+    /* Main Table Container */
+    .card {
+      background: var(--surface);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0 14px;
+      width: 320px;
+    }
+    .search-box i { color: var(--text-muted); margin-right: 8px; }
+    .search-box input {
+      border: none;
+      background: transparent;
+      padding: 10px 0;
+      font-size: 14px;
+      outline: none;
+      width: 100%;
+    }
+    .filter-group { display: flex; gap: 10px; align-items: center; }
+    .select-box {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    /* Table Styling */
+    .table-responsive { overflow-x: auto; }
+    table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+    th {
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 700;
+      padding: 14px 12px;
+      text-align: left;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background-color: #f8fafc; }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-done { background: var(--success-bg); color: var(--success); }
+    .badge-running { background: var(--warning-bg); color: var(--warning); }
+
+    .btn-icon {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-icon:hover { background: #e2e8f0; }
+
+    /* Modal Form */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+    .modal {
+      background: var(--surface);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 { font-size: 16px; color: var(--primary); font-weight: 700; }
+    .modal-close { background: none; border: none; font-size: 18px; color: var(--text-muted); cursor: pointer; }
+    .modal-body { padding: 20px 24px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; }
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+    .form-control:focus { border-color: var(--primary); ring: 2px solid #bfdbfe; }
+    .modal-footer {
+      padding: 14px 24px;
+      background: #f8fafc;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Upload Area Dropzone */
+    .dropzone-box {
+      border: 2px dashed #93c5fd;
+      background: #eff6ff;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 16px;
+      transition: background 0.2s;
+    }
+    .dropzone-box:hover { background: #dbeafe; }
+    .dropzone-box i { font-size: 32px; color: var(--primary); margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <h1><i class="fa-solid fa-calculator"></i> কিস্তি ব্যবসা স্মার্ট পোর্টাল</h1>
+        <p>সকল অংশীদারদের জন্য স্বয়ংক্রিয় লাইভ ড্যাশবোর্ড ও কিস্তি হিসাব</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary" onclick="openCustomerModal()"><i class="fa-solid fa-user-plus"></i> নতুন কাস্টমার / বিক্রয়</button>
+        <button class="btn btn-success" onclick="openInstallmentModal()"><i class="fa-solid fa-money-bill-wave"></i> কিস্তি জমা নিন</button>
+        <button class="btn btn-secondary" onclick="openUploadModal()"><i class="fa-solid fa-file-import"></i> ফাইল আপলোড / আপডেট</button>
+        <button class="btn btn-secondary" onclick="exportData()"><i class="fa-solid fa-download"></i> ডাটা ব্যাকআপ</button>
+      </div>
+    </header>
+
+    <!-- Partners / Capital Section -->
+    <div class="capital-bar">
+      <div>
+        <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">মূলধন অংশীদার:</span>
+        <div class="partners-list" style="margin-top: 4px;">
+          <div class="partner-chip">রাসেল: <strong>৳৫০,০০০</strong> (৩১.২৫%)</div>
+          <div class="partner-chip">নাজমুল: <strong>৳৫০,০০০</strong> (৩১.২৫%)</div>
+          <div class="partner-chip">মোমিন: <strong>৳৬০,০০০</strong> (৩৭.৫০%)</div>
+        </div>
+      </div>
+      <div>
+        <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">মোট পার্টনার তহবিল:</span>
+        <div style="font-size: 20px; font-weight: 800; color: var(--primary); margin-top: 4px;">৳১,৬০,০০০</div>
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="stats-grid">
+      <div class="stat-card c-cost">
+        <div class="stat-label">মোট পণ্য ক্রয় ব্যয়</div>
+        <div class="stat-value" id="totalCost">৳০</div>
+      </div>
+      <div class="stat-card c-profit">
+        <div class="stat-label">প্রত্যাশিত মোট লাভ</div>
+        <div class="stat-value" id="totalProfit">৳০</div>
+      </div>
+      <div class="stat-card c-sales">
+        <div class="stat-label">সর্বমোট বিক্রয় মূল্য</div>
+        <div class="stat-value" id="totalSales">৳০</div>
+      </div>
+      <div class="stat-card c-collected">
+        <div class="stat-label">মোট আদায়কৃত কিস্তি</div>
+        <div class="stat-value" id="totalCollected">৳০</div>
+      </div>
+      <div class="stat-card c-due">
+        <div class="stat-label">বাজারে বর্তমান বকেয়া</div>
+        <div class="stat-value" id="totalDue">৳০</div>
+      </div>
+    </div>
+
+    <!-- Main Table Card -->
+    <div class="card">
+      <div class="toolbar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" placeholder="নাম, মোবাইল নম্বর বা আইডি দিয়ে খুঁজুন..." oninput="renderTable()">
+        </div>
+        <div class="filter-group">
+          <select id="statusFilter" class="select-box" onchange="renderTable()">
+            <option value="ALL">সকল কাস্টমার</option>
+            <option value="Running">চলতি কিস্তি (Running)</option>
+            <option value="Done">পরিশোধিত (Closed / Done)</option>
+          </select>
+          <button class="btn btn-secondary" onclick="resetToInitial()"><i class="fa-solid fa-rotate-left"></i> রিসেট</button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>আইডি</th>
+              <th>গ্রাহকের নাম</th>
+              <th>মোবাইল নম্বর</th>
+              <th>পণ্যের নাম</th>
+              <th style="text-align: right;">ক্রয় মূল্য</th>
+              <th style="text-align: right;">লাভ</th>
+              <th style="text-align: right;">বিক্রয় মূল্য</th>
+              <th style="text-align: right;">মোট জমা</th>
+              <th style="text-align: right;">বর্তমান বকেয়া</th>
+              <th style="text-align: center;">অবস্থা</th>
+              <th style="text-align: center;">অ্যাকশন</th>
+            </tr>
+          </thead>
+          <tbody id="customerTableBody">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add New Customer -->
+  <div class="modal-overlay" id="customerModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-user-plus"></i> নতুন গ্রাহক ও বিক্রয় এন্ট্রি</h3>
+        <button class="modal-close" onclick="closeModal('customerModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>গ্রাহক আইডি (Customer ID)</label>
+          <input type="text" id="newId" class="form-control" placeholder="যেমন: DI#030">
+        </div>
+        <div class="form-group">
+          <label>গ্রাহকের নাম</label>
+          <input type="text" id="newName" class="form-control" placeholder="নাম লিখুন">
+        </div>
+        <div class="form-group">
+          <label>মোবাইল নম্বর</label>
+          <input type="text" id="newPhone" class="form-control" placeholder="017XXXXXXXX">
+        </div>
+        <div class="form-group">
+          <label>পণ্যের নাম</label>
+          <input type="text" id="newProduct" class="form-control" placeholder="ফ্রিজ / মোবাইল / টিভি ইত্যাদি">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group">
+            <label>ক্রয় মূল্য (দোকান থেকে যত কেনা)</label>
+            <input type="number" id="newCost" class="form-control" placeholder="৳">
+          </div>
+          <div class="form-group">
+            <label>নির্ধারিত লাভ (সার্ভিস চার্জ)</label>
+            <input type="number" id="newProfit" class="form-control" placeholder="৳">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>ডাউন পেমেন্ট / শুরুতে জমা (না দিলে ০)</label>
+          <input type="number" id="newDownPayment" class="form-control" placeholder="০" value="0">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('customerModal')">বাতিল</button>
+        <button class="btn btn-primary" onclick="saveNewCustomer()">সংরক্ষণ করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add Installment Payment -->
+  <div class="modal-overlay" id="installmentModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-money-bill-wave"></i> কিস্তি জমা এন্ট্রি</h3>
+        <button class="modal-close" onclick="closeModal('installmentModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>গ্রাহক নির্বাচন করুন</label>
+          <select id="payCustomerSelect" class="form-control">
+            <!-- options -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label>তারিখ</label>
+          <input type="date" id="payDate" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>জমা দেওয়া টাকার পরিমাণ (৳)</label>
+          <input type="number" id="payAmount" class="form-control" placeholder="যেমন: ৩৫০০">
+        </div>
+        <div class="form-group">
+          <label>পরিশোধের মাধ্যম</label>
+          <select id="payMethod" class="form-control">
+            <option value="Cash">ক্যাশ (Cash)</option>
+            <option value="bKash">বিকাশ (bKash)</option>
+            <option value="Nagad">নগদ (Nagad)</option>
+            <option value="Bank">ব্যাংক (Bank)</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('installmentModal')">বাতিল</button>
+        <button class="btn btn-success" onclick="saveInstallment()">জমা নিশ্চিত করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Upload File / Google Sheet HTML / CSV -->
+  <div class="modal-overlay" id="uploadModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-file-import"></i> গুগল শিট HTML বা CSV আপলোড</h3>
+        <button class="modal-close" onclick="closeModal('uploadModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+          গুগল শিট থেকে ডাউনলোড করা HTML ফাইল বা CSV ফাইল এখানে সিলেক্ট করুন। সাইটের সকল ডাটা মুহূর্তের মধ্যে স্বয়ংক্রিয়ভাবে আপডেট হয়ে যাবে।
+        </p>
+        <div class="dropzone-box" onclick="document.getElementById('fileInput').click()">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <h4 style="font-size: 14px; margin-bottom: 4px;">ফাইল এখানে ড্রপ করুন বা ক্লিক করে বাছুন</h4>
+          <p style="font-size: 12px; color: var(--text-muted);">(.html, .htm, .csv, .json ফাইল সমর্থিত)</p>
+          <input type="file" id="fileInput" style="display: none;" accept=".html,.htm,.csv,.json" onchange="handleFileUpload(event)">
+        </div>
+        <div id="uploadStatus" style="font-size: 13px; color: var(--primary); font-weight: 600; text-align: center;"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('uploadModal')">বন্ধ করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initial 26 customers from user's PDF
+    const initialCustomers = [
+      { id: 'DI#001', name: 'Jehadul Islam', phone: '01787590987', product: 'Dressing Table', cost: 14800, profit: 2200, price: 17000, paid: 17000, due: 0, status: 'Done' },
+      { id: 'DI#002', name: 'Jehadul Islam', phone: '01787590987', product: 'Rice Cooker', cost: 4000, profit: 500, price: 4500, paid: 4500, due: 0, status: 'Done' },
+      { id: 'DI#003', name: 'Saju Vai', phone: '01909568130', product: 'Refrigerator', cost: 50250, profit: 6650, price: 56900, paid: 56900, due: 0, status: 'Done' },
+      { id: 'DI#004', name: 'Master', phone: '01405831169', product: 'Khat (Bed)', cost: 9500, profit: 2010, price: 11510, paid: 11510, due: 0, status: 'Done' },
+      { id: 'DI#006', name: 'Mehedi', phone: '01786830356', product: 'Phone', cost: 58600, profit: 12920, price: 71520, paid: 35000, due: 36520, status: 'Running' },
+      { id: 'DI#007', name: 'Jehadul', phone: '01787590987', product: 'Electronics', cost: 81500, profit: 12125, price: 93625, paid: 37000, due: 56625, status: 'Running' },
+      { id: 'DI#008', name: 'Nazmul', phone: '01939157488', product: 'Item', cost: 5000, profit: 750, price: 5750, paid: 5750, due: 0, status: 'Done' },
+      { id: 'DI#009', name: 'Rosid Vai', phone: '01797715501', product: 'Item', cost: 24000, profit: 6500, price: 30500, paid: 30500, due: 0, status: 'Done' },
+      { id: 'DI#010', name: 'Arafat', phone: '01707242565', product: 'Item', cost: 6800, profit: 2200, price: 9000, paid: 5000, due: 4000, status: 'Running' },
+      { id: 'ID#011', name: 'Suvo', phone: '01788020575', product: 'Item', cost: 2450, profit: 350, price: 2800, paid: 2800, due: 0, status: 'Done' },
+      { id: 'DI#013', name: 'Sakil', phone: '01887437876', product: 'Item', cost: 8500, profit: 1000, price: 9500, paid: 9500, due: 0, status: 'Done' },
+      { id: 'ID#014', name: 'Homaion', phone: '-', product: 'Item', cost: 20000, profit: 5950, price: 25950, paid: 26000, due: -50, status: 'Done' },
+      { id: 'DI#015', name: 'Siful', phone: '01788162437', product: 'Item', cost: 59000, profit: 11100, price: 70100, paid: 50000, due: 20100, status: 'Running' },
+      { id: 'DI#016', name: 'Hasib', phone: '01705397830', product: 'Item', cost: 11150, profit: 1650, price: 12800, paid: 12800, due: 0, status: 'Done' },
+      { id: 'DI#018', name: 'Habib', phone: '01830793064', product: 'Item', cost: 3700, profit: 700, price: 4400, paid: 4400, due: 0, status: 'Done' },
+      { id: 'DI#019', name: 'Miraj', phone: '01754804504', product: 'Item', cost: 3000, profit: 360, price: 3360, paid: 3360, due: 0, status: 'Done' },
+      { id: 'DI#020', name: 'Rosid Appo', phone: '01797715501', product: 'Item', cost: 16500, profit: 3500, price: 20000, paid: 16000, due: 4000, status: 'Running' },
+      { id: 'DI#021', name: 'Muna', phone: '01707670738', product: 'Item', cost: 14000, profit: 2850, price: 16850, paid: 11000, due: 5850, status: 'Running' },
+      { id: 'DI#022', name: 'Rosid Fan', phone: '-', product: 'Fan', cost: 6100, profit: 600, price: 6700, paid: 6700, due: 0, status: 'Done' },
+      { id: 'DI#023', name: 'Saiful Vai Thanbee', phone: '-', product: 'Item', cost: 25000, profit: 3750, price: 28750, paid: 17250, due: 11500, status: 'Running' },
+      { id: 'DI#024', name: 'Habibur 1', phone: '01688937696', product: 'Item', cost: 23800, profit: 7450, price: 31250, paid: 15000, due: 16250, status: 'Running' },
+      { id: 'DI#025', name: 'Habibur 2', phone: '01688937696', product: 'Item', cost: 25100, profit: 4800, price: 29900, paid: 15000, due: 14900, status: 'Running' },
+      { id: 'DI#026', name: 'Mosarof', phone: '01739046038', product: 'Item', cost: 4400, profit: 600, price: 5000, paid: 2000, due: 3000, status: 'Running' },
+      { id: 'DI#027', name: 'Jehadul 2', phone: '-', product: 'Item', cost: 25800, profit: 4620, price: 30420, paid: 5000, due: 25420, status: 'Running' },
+      { id: 'DI#028', name: 'Saju', phone: '-', product: 'Item', cost: 4600, profit: 500, price: 5100, paid: 0, due: 5100, status: 'Running' },
+      { id: 'DI#029', name: 'Akash (Mehedi)', phone: '-', product: 'Item', cost: 30000, profit: 8500, price: 38500, paid: 0, due: 38500, status: 'Running' }
+    ];
+
+    let customers = [];
+
+    function loadData() {
+      const saved = localStorage.getItem('installment_customers');
+      if (saved) {
+        try { customers = JSON.parse(saved); } catch(e) { customers = [...initialCustomers]; }
+      } else {
+        customers = [...initialCustomers];
+      }
+      recalculate();
+    }
+
+    function saveData() {
+      localStorage.setItem('installment_customers', JSON.stringify(customers));
+      recalculate();
+      renderTable();
+    }
+
+    function recalculate() {
+      let costSum = 0, profitSum = 0, salesSum = 0, paidSum = 0, dueSum = 0;
+      customers.forEach(c => {
+        c.cost = Number(c.cost) || 0;
+        c.profit = Number(c.profit) || 0;
+        c.price = c.cost + c.profit;
+        c.paid = Number(c.paid) || 0;
+        c.due = c.price - c.paid;
+        c.status = c.due <= 0 ? 'Done' : 'Running';
+
+        costSum += c.cost;
+        profitSum += c.profit;
+        salesSum += c.price;
+        paidSum += c.paid;
+        dueSum += c.due;
+      });
+
+      document.getElementById('totalCost').innerText = '৳' + costSum.toLocaleString('en-IN');
+      document.getElementById('totalProfit').innerText = '৳' + profitSum.toLocaleString('en-IN');
+      document.getElementById('totalSales').innerText = '৳' + salesSum.toLocaleString('en-IN');
+      document.getElementById('totalCollected').innerText = '৳' + paidSum.toLocaleString('en-IN');
+      document.getElementById('totalDue').innerText = '৳' + dueSum.toLocaleString('en-IN');
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('customerTableBody');
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const filter = document.getElementById('statusFilter').value;
+
+      tbody.innerHTML = '';
+
+      const filtered = customers.filter(c => {
+        const matchSearch = c.name.toLowerCase().includes(search) || c.id.toLowerCase().includes(search) || (c.phone && c.phone.includes(search));
+        const matchFilter = (filter === 'ALL') || (c.status === filter);
+        return matchSearch && matchFilter;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align: center; color: var(--text-muted); padding: 30px;">কোনো রেকর্ড পাওয়া যায়নি</td></tr>`;
+        return;
+      }
+
+      filtered.forEach((c, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${c.id}</strong></td>
+          <td><span style="font-weight: 600;">${c.name}</span></td>
+          <td>${c.phone || '-'}</td>
+          <td>${c.product || 'পণ্য'}</td>
+          <td style="text-align: right;">৳${c.cost.toLocaleString('en-IN')}</td>
+          <td style="text-align: right; color: var(--secondary); font-weight: 600;">৳${c.profit.toLocaleString('en-IN')}</td>
+          <td style="text-align: right; font-weight: 700;">৳${c.price.toLocaleString('en-IN')}</td>
+          <td style="text-align: right; color: var(--success); font-weight: 700;">৳${c.paid.toLocaleString('en-IN')}</td>
+          <td style="text-align: right; font-weight: 700; color: ${c.due > 0 ? 'var(--danger)' : 'inherit'};">৳${c.due.toLocaleString('en-IN')}</td>
+          <td style="text-align: center;"><span class="badge ${c.status === 'Done' ? 'badge-done' : 'badge-running'}">${c.status === 'Done' ? 'পরিশোধিত' : 'চলতি'}</span></td>
+          <td style="text-align: center;">
+            <button class="btn-icon" onclick="quickPay('${c.id}')"><i class="fa-solid fa-plus"></i> কিস্তি জমা</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function openCustomerModal() {
+      const nextNum = customers.length + 1;
+      document.getElementById('newId').value = `DI#${nextNum.toString().padStart(3, '0')}`;
+      document.getElementById('newName').value = '';
+      document.getElementById('newPhone').value = '';
+      document.getElementById('newProduct').value = '';
+      document.getElementById('newCost').value = '';
+      document.getElementById('newProfit').value = '';
+      document.getElementById('newDownPayment').value = '0';
+      document.getElementById('customerModal').style.display = 'flex';
+    }
+
+    function saveNewCustomer() {
+      const id = document.getElementById('newId').value.trim();
+      const name = document.getElementById('newName').value.trim();
+      const phone = document.getElementById('newPhone').value.trim();
+      const product = document.getElementById('newProduct').value.trim();
+      const cost = Number(document.getElementById('newCost').value) || 0;
+      const profit = Number(document.getElementById('newProfit').value) || 0;
+      const down = Number(document.getElementById('newDownPayment').value) || 0;
+
+      if (!name) { alert('দয়া করে গ্রাহকের নাম লিখুন'); return; }
+
+      customers.unshift({
+        id: id || `ID#${customers.length + 1}`,
+        name: name,
+        phone: phone || '-',
+        product: product || 'পণ্য',
+        cost: cost,
+        profit: profit,
+        price: cost + profit,
+        paid: down,
+        due: (cost + profit) - down,
+        status: ((cost + profit) - down) <= 0 ? 'Done' : 'Running'
+      });
+
+      saveData();
+      closeModal('customerModal');
+      alert('নতুন কাস্টমার ও বিক্রয় সফলভাবে যোগ হয়েছে!');
+    }
+
+    function openInstallmentModal() {
+      const select = document.getElementById('payCustomerSelect');
+      select.innerHTML = '';
+      customers.filter(c => c.due > 0).forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.id;
+        opt.innerText = `${c.name} (${c.id}) - বকেয়া: ৳${c.due.toLocaleString('en-IN')}`;
+        select.appendChild(opt);
+      });
+      document.getElementById('payDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('payAmount').value = '';
+      document.getElementById('installmentModal').style.display = 'flex';
+    }
+
+    function quickPay(id) {
+      openInstallmentModal();
+      document.getElementById('payCustomerSelect').value = id;
+    }
+
+    function saveInstallment() {
+      const id = document.getElementById('payCustomerSelect').value;
+      const amount = Number(document.getElementById('payAmount').value) || 0;
+      if (amount <= 0) { alert('দয়া করে সঠিক টাকার পরিমাণ লিখুন'); return; }
+
+      const target = customers.find(c => c.id === id);
+      if (target) {
+        target.paid += amount;
+        saveData();
+        closeModal('installmentModal');
+        alert(`${target.name}-এর ৳${amount.toLocaleString('en-IN')} কিস্তি সফলভাবে জমা হয়েছে!`);
+      }
+    }
+
+    function openUploadModal() {
+      document.getElementById('uploadStatus').innerText = '';
+      document.getElementById('uploadModal').style.display = 'flex';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    function resetToInitial() {
+      if (confirm('আপনি কি সব ডাটা রিসেট করে শুরুর ২৬ জন গ্রাহকের রেকর্ডে ফিরে যেতে চান?')) {
+        customers = [...initialCustomers];
+        saveData();
+      }
+    }
+
+    function exportData() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(customers, null, 2));
+      const dl = document.createElement('a');
+      dl.setAttribute("href", dataStr);
+      dl.setAttribute("download", `installment_data_backup_${new Date().toISOString().split('T')[0]}.json`);
+      dl.click();
+    }
+
+    // Smart Parser for uploaded Google Sheet HTML / CSV
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      const statusEl = document.getElementById('uploadStatus');
+      statusEl.innerText = 'ফাইল প্রসেস করা হচ্ছে...';
+
+      reader.onload = function(e) {
+        const content = e.target.result;
+        try {
+          if (file.name.endsWith('.json')) {
+            const parsed = JSON.parse(content);
+            if (Array.isArray(parsed)) {
+              customers = parsed;
+              saveData();
+              statusEl.innerText = '✅ JSON ফাইল থেকে ডাটা সফলভাবে আপডেট হয়েছে!';
+              setTimeout(() => closeModal('uploadModal'), 1200);
+              return;
+            }
+          }
+
+          // HTML Parser (Google Sheets Web Page export)
+          if (file.name.endsWith('.html') || file.name.endsWith('.htm')) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(content, 'text/html');
+            const rows = doc.querySelectorAll('table tr');
+            const imported = [];
+
+            rows.forEach((row, rIdx) => {
+              if (rIdx === 0) return; // Skip header
+              const cells = Array.from(row.querySelectorAll('td, th')).map(c => c.innerText.trim());
+              if (cells.length >= 7) {
+                // Heuristic mapping: ID, Name, Phone, Product, Cost, Profit, Price, Paid, Due
+                const id = cells[0] || `DI#${imported.length + 1}`;
+                const name = cells[1] || 'Unknown';
+                const phone = cells[2] || '-';
+                const product = cells[3] || 'Item';
+                const cost = parseFloat(cells[4].replace(/[^0-9.-]/g, '')) || 0;
+                const profit = parseFloat(cells[5].replace(/[^0-9.-]/g, '')) || 0;
+                const paid = parseFloat(cells[7]?.replace(/[^0-9.-]/g, '')) || 0;
+                
+                if (name && (cost > 0 || profit > 0 || paid > 0)) {
+                  imported.push({
+                    id: id,
+                    name: name,
+                    phone: phone,
+                    product: product,
+                    cost: cost,
+                    profit: profit,
+                    price: cost + profit,
+                    paid: paid,
+                    due: (cost + profit) - paid,
+                    status: ((cost + profit) - paid) <= 0 ? 'Done' : 'Running'
+                  });
+                }
+              }
+            });
+
+            if (imported.length > 0) {
+              customers = imported;
+              saveData();
+              statusEl.innerText = `✅ HTML ফাইল থেকে ${imported.length}টি গ্রাহকের হিসাব সফলভাবে আপডেট হয়েছে!`;
+              setTimeout(() => closeModal('uploadModal'), 1500);
+            } else {
+              statusEl.innerText = '⚠️ কোনো টেবিল ডাটা খুঁজে পাওয়া যায়নি।';
+            }
+          }
+        } catch (err) {
+          statusEl.innerText = '❌ ফাইল প্রসেস করতে সমস্যা হয়েছে।';
+          console.error(err);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Initialize on load
+    loadData();
+    renderTable();
+  </script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>কিস্তি ব্যবসার স্মার্ট হিসাব খাতা (Installment Business Tracker)</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #3b82f6;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --warning: #d97706;
+      --danger: #dc2626;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 24px; }
+    .container { max-width: 1300px; margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+    h1 { font-size: 24px; color: var(--primary); font-weight: 700; }
+    p.subtitle { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: var(--card-bg); padding: 18px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .stat-title { font-size: 13px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+    .stat-val { font-size: 22px; font-weight: 700; color: var(--text); margin-top: 6px; }
+    .stat-card.due .stat-val { color: var(--danger); }
+    .stat-card.paid .stat-val { color: var(--success); }
+    .stat-card.profit .stat-val { color: var(--primary-light); }
+
+    .tabs { display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 2px solid var(--border); padding-bottom: 4px; }
+    .tab-btn { background: none; border: none; padding: 10px 18px; font-size: 15px; font-weight: 600; cursor: pointer; color: var(--text-muted); border-radius: 8px 8px 0 0; }
+    .tab-btn.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
+
+    .card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 24px; }
+    .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+    .search-input { padding: 9px 14px; border: 1px solid var(--border); border-radius: 8px; width: 280px; font-size: 14px; }
+    .filter-select { padding: 9px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: #f1f5f9; padding: 12px; text-align: left; font-weight: 600; color: var(--text); border-bottom: 2px solid var(--border); }
+    td { padding: 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:hover { background-color: #f8fafc; }
+    
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; text-align: center; }
+    .badge-done { background: #dcfce7; color: #15803d; }
+    .badge-running { background: #fef3c7; color: #b45309; }
+
+    .btn { background: var(--primary); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+    .btn:hover { background: #1d4ed8; }
+    .btn-secondary { background: #e2e8f0; color: #1e293b; }
+    .btn-secondary:hover { background: #cbd5e1; }
+
+    .partner-pill { background: #eff6ff; padding: 8px 14px; border-radius: 8px; display: inline-block; margin-right: 10px; border: 1px solid #bfdbfe; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>📦 কিস্তি ব্যবসার স্মার্ট ম্যানেজমেন্ট ড্যাশবোর্ড</h1>
+        <p class="subtitle">আপনার পিডিএফ-এর সকল গ্রাহক ও আর্থিক হিসাব সাজানো রূপ</p>
+      </div>
+      <div>
+        <a href="Installment_Business_Book.xls" download class="btn">📥 Excel শিট ডাউনলোড করুন</a>
+      </div>
+    </header>
+
+    <!-- Capital / Partners -->
+    <div style="margin-bottom: 20px;">
+      <span style="font-weight: 600; color: var(--text-muted); margin-right: 12px;">মূলধন অংশীদার:</span>
+      <span class="partner-pill"><strong>রাসেল:</strong> ৳৫০,০০০</span>
+      <span class="partner-pill"><strong>নাজমুল:</strong> ৳৫০,০০০</span>
+      <span class="partner-pill"><strong>মোমিন:</strong> ৳৬০,০০০</span>
+      <span class="partner-pill" style="background: #fdf4ff; border-color: #f0abfc;"><strong>মোট মূলধন:</strong> ৳১,৬০,০০০</span>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-title">মোট ক্রয় খরচ (Cost)</div>
+        <div class="stat-val">৳৫,৩৭,৫৫০</div>
+      </div>
+      <div class="stat-card profit">
+        <div class="stat-title">প্রত্যাশিত মোট লাভ</div>
+        <div class="stat-val">+৳১,০৪,১৩৫</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-title">মোট বিক্রয় মূল্য</div>
+        <div class="stat-val">৳৬,৪১,৬৮৫</div>
+      </div>
+      <div class="stat-card paid">
+        <div class="stat-title">মোট আদায়কৃত কিস্তি</div>
+        <div class="stat-val">৳৩,৯৯,৯৭০</div>
+      </div>
+      <div class="stat-card due">
+        <div class="stat-title">বাজারে বর্তমান বকেয়া</div>
+        <div class="stat-val">৳২,৪১,৭১৫</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="toolbar">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 গ্রাহকের নাম, আইডি বা ফোন দিয়ে খুঁজুন..." oninput="filterTable()">
+        <div>
+          <label style="font-size: 14px; color: var(--text-muted); margin-right: 8px;">ফিল্টার:</label>
+          <select id="statusFilter" class="filter-select" onchange="filterTable()">
+            <option value="ALL">সকল গ্রাহক (২৬ জন)</option>
+            <option value="Running">চলতি কিস্তি (Running)</option>
+            <option value="Done">পরিশোধিত (Done / Close)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table id="customerTable">
+          <thead>
+            <tr>
+              <th>আইডি</th>
+              <th>গ্রাহকের নাম</th>
+              <th>মোবাইল নম্বর</th>
+              <th>পণ্য</th>
+              <th style="text-align: right;">ক্রয় মূল্য</th>
+              <th style="text-align: right;">লাভ</th>
+              <th style="text-align: right;">বিক্রয় মূল্য</th>
+              <th style="text-align: right;">মোট জমা</th>
+              <th style="text-align: right;">বর্তমান বকেয়া</th>
+              <th style="text-align: center;">অবস্থা</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const customers = [
+      { id: 'DI#001', name: 'Jehadul Islam', phone: '01787590987', product: 'Dressing Table', cost: 14800, profit: 2200, price: 17000, paid: 17000, due: 0, status: 'Done' },
+      { id: 'DI#002', name: 'Jehadul Islam', phone: '01787590987', product: 'Rice Cooker', cost: 4000, profit: 500, price: 4500, paid: 4500, due: 0, status: 'Done' },
+      { id: 'DI#003', name: 'Saju Vai', phone: '01909568130', product: 'Refrigerator', cost: 50250, profit: 6650, price: 56900, paid: 56900, due: 0, status: 'Done' },
+      { id: 'DI#004', name: 'Master', phone: '01405831169', product: 'Khat (Bed)', cost: 9500, profit: 2010, price: 11510, paid: 11510, due: 0, status: 'Done' },
+      { id: 'DI#006', name: 'Mehedi', phone: '01786830356', product: 'Phone', cost: 58600, profit: 12920, price: 71520, paid: 35000, due: 36520, status: 'Running' },
+      { id: 'DI#007', name: 'Jehadul', phone: '01787590987', product: 'Electronics', cost: 81500, profit: 12125, price: 93625, paid: 37000, due: 56625, status: 'Running' },
+      { id: 'DI#008', name: 'Nazmul', phone: '01939157488', product: 'Item', cost: 5000, profit: 750, price: 5750, paid: 5750, due: 0, status: 'Done' },
+      { id: 'DI#009', name: 'Rosid Vai', phone: '01797715501', product: 'Item', cost: 24000, profit: 6500, price: 30500, paid: 30500, due: 0, status: 'Done' },
+      { id: 'DI#010', name: 'Arafat', phone: '01707242565', product: 'Item', cost: 6800, profit: 2200, price: 9000, paid: 5000, due: 4000, status: 'Running' },
+      { id: 'ID#011', name: 'Suvo', phone: '01788-020575', product: 'Item', cost: 2450, profit: 350, price: 2800, paid: 2800, due: 0, status: 'Done' },
+      { id: 'DI#013', name: 'Sakil', phone: '01887437876', product: 'Item', cost: 8500, profit: 1000, price: 9500, paid: 9500, due: 0, status: 'Done' },
+      { id: 'ID#014', name: 'Homaion', phone: '-', product: 'Item', cost: 20000, profit: 5950, price: 25950, paid: 26000, due: -50, status: 'Done' },
+      { id: 'DI#015', name: 'Siful', phone: '01788162437', product: 'Item', cost: 59000, profit: 11100, price: 70100, paid: 50000, due: 20100, status: 'Running' },
+      { id: 'DI#016', name: 'Hasib', phone: '01705397830', product: 'Item', cost: 11150, profit: 1650, price: 12800, paid: 12800, due: 0, status: 'Done' },
+      { id: 'DI#018', name: 'Habib', phone: '01830793064', product: 'Item', cost: 3700, profit: 700, price: 4400, paid: 4400, due: 0, status: 'Done' },
+      { id: 'DI#019', name: 'Miraj', phone: '01754804504', product: 'Item', cost: 3000, profit: 360, price: 3360, paid: 3360, due: 0, status: 'Done' },
+      { id: 'DI#020', name: 'Rosid Appo', phone: '01797715501', product: 'Item', cost: 16500, profit: 3500, price: 20000, paid: 16000, due: 4000, status: 'Running' },
+      { id: 'DI#021', name: 'Muna', phone: '01707670738', product: 'Item', cost: 14000, profit: 2850, price: 16850, paid: 11000, due: 5850, status: 'Running' },
+      { id: 'DI#022', name: 'Rosid Fan', phone: '-', product: 'Fan', cost: 6100, profit: 600, price: 6700, paid: 6700, due: 0, status: 'Done' },
+      { id: 'DI#023', name: 'Saiful Vai Thanbee', phone: '-', product: 'Item', cost: 25000, profit: 3750, price: 28750, paid: 17250, due: 11500, status: 'Running' },
+      { id: 'DI#024', name: 'Habibur 1', phone: '01688937696', product: 'Item', cost: 23800, profit: 7450, price: 31250, paid: 15000, due: 16250, status: 'Running' },
+      { id: 'DI#025', name: 'Habibur 2', phone: '01688937696', product: 'Item', cost: 25100, profit: 4800, price: 29900, paid: 15000, due: 14900, status: 'Running' },
+      { id: 'DI#026', name: 'Mosarof', phone: '01739046038', product: 'Item', cost: 4400, profit: 600, price: 5000, paid: 2000, due: 3000, status: 'Running' },
+      { id: 'DI#027', name: 'Jehadul 2', phone: '-', product: 'Item', cost: 25800, profit: 4620, price: 30420, paid: 5000, due: 25420, status: 'Running' },
+      { id: 'DI#028', name: 'Saju', phone: '-', product: 'Item', cost: 4600, profit: 500, price: 5100, paid: 0, due: 5100, status: 'Running' },
+      { id: 'DI#029', name: 'Akash (Mehedi)', phone: '-', product: 'Item', cost: 30000, profit: 8500, price: 38500, paid: 0, due: 38500, status: 'Running' }
+    ];
+
+    function formatNumber(num) {
+      return num.toLocaleString('en-IN');
+    }
+
+    function renderTable(list) {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+      list.forEach(c => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${c.id}</strong></td>
+          <td>${c.name}</td>
+          <td>${c.phone}</td>
+          <td>${c.product}</td>
+          <td style="text-align: right;">৳${formatNumber(c.cost)}</td>
+          <td style="text-align: right; color: var(--primary-light);">৳${formatNumber(c.profit)}</td>
+          <td style="text-align: right; font-weight: 600;">৳${formatNumber(c.price)}</td>
+          <td style="text-align: right; color: var(--success);">৳${formatNumber(c.paid)}</td>
+          <td style="text-align: right; font-weight: 600; color: ${c.due > 0 ? 'var(--danger)' : 'inherit'};">৳${formatNumber(c.due)}</td>
+          <td style="text-align: center;"><span class="badge ${c.status === 'Done' ? 'badge-done' : 'badge-running'}">${c.status === 'Done' ? 'পরিশোধিত' : 'চলতি'}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterTable() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const status = document.getElementById('statusFilter').value;
+      const filtered = customers.filter(c => {
+        const matchQuery = c.name.toLowerCase().includes(query) || c.id.toLowerCase().includes(query) || c.phone.includes(query);
+        const matchStatus = (status === 'ALL') || (c.status === status);
+        return matchQuery && matchStatus;
+      });
+      renderTable(filtered);
+    }
+
+    renderTable(customers);
+  </script>
+</body>
+</html>

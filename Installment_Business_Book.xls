@@ -1,0 +1,516 @@
+﻿<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>Antigravity</Author>
+  <Created>2026-11-22T16:13:28.729Z</Created>
+  <Company>Installment Business Management</Company>
+ </DocumentProperties>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Center"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#1E293B"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="HeaderStyle">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#CBD5E1"/>
+   </Borders>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Interior ss:Color="#1E3A8A" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="TitleStyle">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Center"/>
+   <Font ss:FontName="Calibri" ss:Size="14" ss:Color="#1E3A8A" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="SummaryLabel">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Center"/>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Color="#334155" ss:Bold="1"/>
+   <Interior ss:Color="#F1F5F9" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="CurrencyStyle">
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+   <Font ss:FontName="Calibri" ss:Size="11"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="CurrencyBold">
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+   <Font ss:FontName="Calibri" ss:Size="11" ss:Bold="1" ss:Color="#0F172A"/>
+   <Interior ss:Color="#E2E8F0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="#,##0"/>
+  </Style>
+  <Style ss:ID="DoneStatus">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Font ss:FontName="Calibri" ss:Size="10" ss:Color="#15803D" ss:Bold="1"/>
+   <Interior ss:Color="#DCFCE7" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="RunningStatus">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Font ss:FontName="Calibri" ss:Size="10" ss:Color="#B45309" ss:Bold="1"/>
+   <Interior ss:Color="#FEF3C7" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+
+ <!-- Worksheet 1: Dashboard -->
+ <Worksheet ss:Name="ড্যাশবোর্ড (Dashboard)">
+  <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="22">
+   <Column ss:Width="180"/>
+   <Column ss:Width="140"/>
+   <Column ss:Width="180"/>
+   
+   <Row ss:Height="30">
+    <Cell ss:StyleID="TitleStyle"><Data ss:Type="String">ব্যবসার সার্বিক আর্থিক ড্যাশবোর্ড (Overview)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">খাত / বিবরণ</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">টাকার পরিমাণ (BDT)</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">মন্তব্য / ব্যাখ্যা</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String">মোট মূলধন (Partners Capital)</Data></Cell>
+    <Cell ss:StyleID="CurrencyBold"><Data ss:Type="Number">160000</Data></Cell>
+    <Cell><Data ss:Type="String">রাসেল: ৫০,০০০ | নাজমুল: ৫০,০০০ | মোমিন: ৬০,০০০</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String">মোট পণ্য ক্রয় ব্যয় (Cost)</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">537550</Data></Cell>
+    <Cell><Data ss:Type="String">দোকান থেকে কিনে দেওয়া পণ্যের আসল মূল্য</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String">প্রত্যাশিত মোট লাভ (Profit)</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">104135</Data></Cell>
+    <Cell><Data ss:Type="String">সার্ভিস চার্জ / মোট প্রফিট মার্জিন</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String">সর্বমোট বিক্রয় মূল্য (Sales Value)</Data></Cell>
+    <Cell ss:StyleID="CurrencyBold"><Data ss:Type="Number">641685</Data></Cell>
+    <Cell><Data ss:Type="String">কেনা দাম + লাভ (গ্রাহকদের কাছ থেকে মোট প্রাপ্য)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String">মোট আদায়কৃত কিস্তি (Collected)</Data></Cell>
+    <Cell ss:StyleID="CurrencyBold"><Data ss:Type="Number">399970</Data></Cell>
+    <Cell><Data ss:Type="String">গ্রাহকগণ এ পর্যন্ত পরিশোধ করেছেন</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String">বর্তমান মোট পাওনা / বকেয়া (Due)</Data></Cell>
+    <Cell ss:StyleID="CurrencyBold"><Data ss:Type="Number">241715</Data></Cell>
+    <Cell><Data ss:Type="String">বাজারে এখনও পাওনা রয়েছে</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String">ক্যাশ অ্যাসেট (Cash in Hand)</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">22420</Data></Cell>
+    <Cell><Data ss:Type="String">হাতে থাকা নগদ অর্থ</Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+ <!-- Worksheet 2: Customer Sales Master -->
+ <Worksheet ss:Name="গ্রাহক ও বিক্রয় খাতা (Sales Master)">
+  <Table ss:DefaultColumnWidth="90" ss:DefaultRowHeight="20">
+   <Column ss:Width="70"/>
+   <Column ss:Width="130"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="80"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="75"/>
+
+   <Row ss:Height="25">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">আইডি</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">গ্রাহকের নাম</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">মোবাইল নম্বর</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">পণ্যের নাম</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">ক্রয় মূল্য (Cost)</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">লাভ (Profit)</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">মোট দাম (Total)</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">মোট জমা (Paid)</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">বকেয়া (Due)</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">অবস্থা</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#001</Data></Cell>
+    <Cell><Data ss:Type="String">Jehadul Islam</Data></Cell>
+    <Cell><Data ss:Type="String">01787590987</Data></Cell>
+    <Cell><Data ss:Type="String">Dressing Table</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">14800</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">2200</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">17000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">17000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#002</Data></Cell>
+    <Cell><Data ss:Type="String">Jehadul Islam</Data></Cell>
+    <Cell><Data ss:Type="String">01787590987</Data></Cell>
+    <Cell><Data ss:Type="String">Rice Cooker</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">4000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">4500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">4500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#003</Data></Cell>
+    <Cell><Data ss:Type="String">Saju Vai</Data></Cell>
+    <Cell><Data ss:Type="String">01909568130</Data></Cell>
+    <Cell><Data ss:Type="String">Refrigerator</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">50250</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">6650</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">56900</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">56900</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#004</Data></Cell>
+    <Cell><Data ss:Type="String">Master</Data></Cell>
+    <Cell><Data ss:Type="String">01405831169</Data></Cell>
+    <Cell><Data ss:Type="String">Khat (Bed)</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">9500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">2010</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">11510</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">11510</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#006</Data></Cell>
+    <Cell><Data ss:Type="String">Mehedi</Data></Cell>
+    <Cell><Data ss:Type="String">01786830356</Data></Cell>
+    <Cell><Data ss:Type="String">Phone</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">58600</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">12920</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">71520</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">35000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">36520</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#007</Data></Cell>
+    <Cell><Data ss:Type="String">Jehadul</Data></Cell>
+    <Cell><Data ss:Type="String">01787590987</Data></Cell>
+    <Cell><Data ss:Type="String">Electronics / Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">81500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">12125</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">93625</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">37000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">56625</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#008</Data></Cell>
+    <Cell><Data ss:Type="String">Nazmul</Data></Cell>
+    <Cell><Data ss:Type="String">01939157488</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">5000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">750</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">5750</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">5750</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#009</Data></Cell>
+    <Cell><Data ss:Type="String">Rosid Vai</Data></Cell>
+    <Cell><Data ss:Type="String">01797715501</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">24000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">6500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">30500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">30500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#010</Data></Cell>
+    <Cell><Data ss:Type="String">Arafat</Data></Cell>
+    <Cell><Data ss:Type="String">01707242565</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">6800</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">2200</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">9000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">5000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">4000</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ID#011</Data></Cell>
+    <Cell><Data ss:Type="String">Suvo</Data></Cell>
+    <Cell><Data ss:Type="String">01788020575</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">2450</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">350</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">2800</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">2800</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#013</Data></Cell>
+    <Cell><Data ss:Type="String">Sakil</Data></Cell>
+    <Cell><Data ss:Type="String">01887437876</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">8500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">1000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">9500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">9500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ID#014</Data></Cell>
+    <Cell><Data ss:Type="String">Homaion</Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">20000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">5950</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">25950</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">26000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">-50</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#015</Data></Cell>
+    <Cell><Data ss:Type="String">Siful</Data></Cell>
+    <Cell><Data ss:Type="String">01788162437</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">59000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">11100</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">70100</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">50000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">20100</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#016</Data></Cell>
+    <Cell><Data ss:Type="String">Hasib</Data></Cell>
+    <Cell><Data ss:Type="String">01705397830</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">11150</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">1650</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">12800</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">12800</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#018</Data></Cell>
+    <Cell><Data ss:Type="String">Habib</Data></Cell>
+    <Cell><Data ss:Type="String">01830793064</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">3700</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">700</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">4400</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">4400</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#019</Data></Cell>
+    <Cell><Data ss:Type="String">Miraj</Data></Cell>
+    <Cell><Data ss:Type="String">01754804504</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">3000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">360</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">3360</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">3360</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#020</Data></Cell>
+    <Cell><Data ss:Type="String">Rosid Appo</Data></Cell>
+    <Cell><Data ss:Type="String">01797715501</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">16500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">3500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">20000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">16000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">4000</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#021</Data></Cell>
+    <Cell><Data ss:Type="String">Muna</Data></Cell>
+    <Cell><Data ss:Type="String">01707670738</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">14000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">2850</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">16850</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">11000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">5850</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#022</Data></Cell>
+    <Cell><Data ss:Type="String">Rosid Fan</Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String">Fan</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">6100</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">600</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">6700</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">6700</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="DoneStatus"><Data ss:Type="String">পরিশোধিত</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#023</Data></Cell>
+    <Cell><Data ss:Type="String">Saiful Vai Thanbee</Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">25000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">3750</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">28750</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">17250</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">11500</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#024</Data></Cell>
+    <Cell><Data ss:Type="String">Habibur 1</Data></Cell>
+    <Cell><Data ss:Type="String">01688937696</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">23800</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">7450</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">31250</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">15000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">16250</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#025</Data></Cell>
+    <Cell><Data ss:Type="String">Habibur 2</Data></Cell>
+    <Cell><Data ss:Type="String">01688937696</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">25100</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">4800</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">29900</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">15000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">14900</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#026</Data></Cell>
+    <Cell><Data ss:Type="String">Mosarof</Data></Cell>
+    <Cell><Data ss:Type="String">01739046038</Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">4400</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">600</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">5000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">2000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">3000</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#027</Data></Cell>
+    <Cell><Data ss:Type="String">Jehadul 2</Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">25800</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">4620</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">30420</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">5000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">25420</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#028</Data></Cell>
+    <Cell><Data ss:Type="String">Saju</Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">4600</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">5100</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">5100</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">DI#029</Data></Cell>
+    <Cell><Data ss:Type="String">Akash (Mehedi)</Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+    <Cell><Data ss:Type="String">Item</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">30000</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">8500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]+RC[-1]"><Data ss:Type="Number">38500</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">0</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle" ss:Formula="=RC[-2]-RC[-1]"><Data ss:Type="Number">38500</Data></Cell>
+    <Cell ss:StyleID="RunningStatus"><Data ss:Type="String">চলতি</Data></Cell>
+   </Row>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String">মোট (Total)</Data></Cell>
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="CurrencyBold" ss:Formula="=SUM(R2C5:R27C5)"><Data ss:Type="Number">537550</Data></Cell>
+    <Cell ss:StyleID="CurrencyBold" ss:Formula="=SUM(R2C6:R27C6)"><Data ss:Type="Number">104135</Data></Cell>
+    <Cell ss:StyleID="CurrencyBold" ss:Formula="=SUM(R2C7:R27C7)"><Data ss:Type="Number">641685</Data></Cell>
+    <Cell ss:StyleID="CurrencyBold" ss:Formula="=SUM(R2C8:R27C8)"><Data ss:Type="Number">399970</Data></Cell>
+    <Cell ss:StyleID="CurrencyBold" ss:Formula="=SUM(R2C9:R27C9)"><Data ss:Type="Number">241715</Data></Cell>
+    <Cell ss:StyleID="SummaryLabel"><Data ss:Type="String"></Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+
+ <!-- Worksheet 3: Daily Installment Ledger -->
+ <Worksheet ss:Name="দৈনিক কিস্তি জমা (Installment Ledger)">
+  <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="20">
+   <Column ss:Width="90"/>
+   <Column ss:Width="80"/>
+   <Column ss:Width="130"/>
+   <Column ss:Width="100"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="90"/>
+   <Column ss:Width="160"/>
+   <Row ss:Height="25">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">তারিখ</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">গ্রাহক আইডি</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">গ্রাহকের নাম</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">কিস্তি নম্বর</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">জমা টাকা</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">মাধ্যম</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">মন্তব্য / ট্রানজেকশন</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">10/10/2025</Data></Cell>
+    <Cell><Data ss:Type="String">DI#001</Data></Cell>
+    <Cell><Data ss:Type="String">Jehadul Islam</Data></Cell>
+    <Cell><Data ss:Type="String">১ম কিস্তি</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">3500</Data></Cell>
+    <Cell><Data ss:Type="String">ক্যাশ</Data></Cell>
+    <Cell><Data ss:Type="String">রশিদ নং #১০১</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">11/10/2025</Data></Cell>
+    <Cell><Data ss:Type="String">DI#001</Data></Cell>
+    <Cell><Data ss:Type="String">Jehadul Islam</Data></Cell>
+    <Cell><Data ss:Type="String">২য় কিস্তি</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">3500</Data></Cell>
+    <Cell><Data ss:Type="String">ক্যাশ</Data></Cell>
+    <Cell><Data ss:Type="String">রশিদ নং #১০২</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">12/10/2025</Data></Cell>
+    <Cell><Data ss:Type="String">DI#006</Data></Cell>
+    <Cell><Data ss:Type="String">Mehedi</Data></Cell>
+    <Cell><Data ss:Type="String">১ম কিস্তি</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">5000</Data></Cell>
+    <Cell><Data ss:Type="String">বিকাশ</Data></Cell>
+    <Cell><Data ss:Type="String">TrxID: BK987123</Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+</Workbook>
